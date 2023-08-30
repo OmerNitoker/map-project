@@ -53,6 +53,8 @@ function renderLocations(locations) {
     let strHtml = `<table><tr><th>Place</th><th>lat</th><th>lng</th><th>Created at</th><th>Updated at</th><th>Go</th><th>Edit</th><th>Delete</th></tr>`
     let strHtmls = locations.map(location => `<tr><td>${location.name}</td><td>${location.lat}</td><td>${location.lng}</td><td>${location.createdAt}</td><td>${location.updatedAt}</td><td><button onclick="onGoLoc(${location.id}")>Go</button></td><td><button onclick="onEditLoc(${location.id})">Edit</button></td><td><button onclick="onRemoveLoc(${location.id})">Delete</button></td></tr>`)
     strHtml += strHtmls.join('') + `</table>`
+
+    document.querySelector('.locs').innerHTML = strHtml
 }
 
 function onGetUserPos() {
