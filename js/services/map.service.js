@@ -67,6 +67,7 @@ function getCords(address){
 
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`)
     .then(res=>res.data.results[0].geometry.location)
+    .then()
 
 
 }

@@ -102,3 +102,23 @@ function onSearch(ev) {
     })
 
 }
+
+function onAddQueryParams(lat,lng){
+    // need Github url
+    // example of how it should look:  https://github.io/me/travelTip/index.html?lat=3.14&lng=1.63
+    const queryParams=`?lat=${lat}&lng=${lng}`
+
+    // const newUrl= window.location.protocol + "//" + window.location.host + window.location.pathname + queryParams
+    // window.history.pushState({ path: newUrl }, '', newUrl)
+}
+
+
+function renderMapWithQueryParams(){
+const urlParams= new URLSearchParams(window.location.search)
+const lat = urlParams.get('lat')
+const lng = urlParams.get('lng')
+
+// this func should be called at onInit and send  
+// lat and lang to initMap
+
+}
