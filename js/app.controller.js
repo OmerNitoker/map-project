@@ -11,8 +11,19 @@ function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready')
+            const map=getMap()
+            map.addListener('click', ev => {
+                const name = prompt('Place name?')
+                const lat= ev.latLng.lat()
+                const lng = ev.latLng.lng()
+                onAddLocation(name,lat,lng)
+            })
         })
         .catch(() => console.log('Error: cannot init map'))
+}
+
+function onAddLocation(name,lat,lng){
+
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition

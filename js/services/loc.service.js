@@ -63,3 +63,6 @@ function save(location) {
 // }
 
 
+function createLocation(){
+    
+}
