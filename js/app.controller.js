@@ -8,6 +8,8 @@ window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onRemoveLoc = onRemoveLoc
 window.onGoLoc = onGoLoc
+window.onMyLocation = onMyLocation
+window.onSearch = onSearch
 
 function onInit() {
     mapService.initMap()
@@ -16,6 +18,7 @@ function onInit() {
             const map = mapService.getMap()
             map.addListener('click', ev => {
                 const name = prompt('Place name?')
+                if (name === null) return
                 const lat = ev.latLng.lat()
                 const lng = ev.latLng.lng()
                 console.log(name, lat, lng)
@@ -50,7 +53,7 @@ function onGetLocs() {
 
 function renderLocations(locations) {
     let strHtml = `<table><tr><th>Place</th><th>lat</th><th>lng</th><th>Created at</th><th>Updated at</th><th>Go</th><th>Edit</th><th>Delete</th></tr>`
-    let strHtmls = locations.map(location => `<tr><td>${location.name}</td><td>${location.lat}</td><td>${location.lng}</td><td>${location.createdAt}</td><td>${location.updatedAt}</td><td><button onclick="onGoLoc(${location.id}")>Go</button></td><td><button onclick="onEditLoc(${location.id})">Edit</button></td><td><button onclick="onRemoveLoc(${location.id})">Delete</button></td></tr>`)
+    let strHtmls = locations.map(location => `<tr><td>${location.name}</td><td>${location.lat}</td><td>${location.lng}</td><td>${location.createdAt}</td><td>${location.updatedAt}</td><td><button onclick="onGoLoc('${location.id}')">Go</button></td><td><button onclick="onEditLoc('${location.id}')">Edit</button></td><td><button onclick="onRemoveLoc('${location.id}')">Delete</button></td></tr>`)
     strHtml += strHtmls.join('') + `</table>`
 
     document.querySelector('.locs').innerHTML = strHtml
@@ -72,14 +75,30 @@ function onPanTo() {
     mapService.panTo(35.6895, 139.6917)
 }
 
+function onMyLocation() {
+    getPosition()
+        .then(res => mapService.panTo(res.coords.latitude, res.coords.longitude))
+}
+
 function onRemoveLoc(locId) {
     locService.remove(locId)
+        .then(onGetLocs)
 }
 
 function onGoLoc(locId) {
     console.log(locId)
     locService.get(locId)
-        .then(loc=>mapService.panTo(loc.lat,loc.lng))
+        .then(loc => mapService.panTo(loc.lat, loc.lng))
 }
 
-// ZZUzB
+function onSearch(ev) {
+    console.log(ev)
+    if (ev) ev.preventDefault()
+    const elInputSearch = document.querySelector('input[name=search]')
+    mapService.getCords(elInputSearch.value)
+    .then(res=>{
+        mapService.panTo(res.lat,res.lng)
+        onAddLocation(elInputSearch.value,res.lat,res.lng)
+    })
+
+}

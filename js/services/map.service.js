@@ -2,7 +2,8 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
-    getMap
+    getMap,
+    getCords
 }
 
 
@@ -55,4 +56,17 @@ function _connectGoogleApi() {
         elGoogleApi.onload = resolve
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
+}
+
+
+
+function getCords(address){
+    // const API_KEY = 'AIzaSyBT0AREZeSbE8zpk93EJAsB06EdEr7QqA0' //TODO: Enter your API Key
+    const API_KEY= 'AIzaSyBMwvwhw23wACBwC6TnwSR7icYolOe5C4I'
+
+
+    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`)
+    .then(res=>res.data.results[0].geometry.location)
+
+
 }
