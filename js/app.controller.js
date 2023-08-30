@@ -14,7 +14,6 @@ function onInit() {
         .then(() => {
             console.log('Map is ready')
             const map = mapService.getMap()
-            console.log(map)
             map.addListener('click', ev => {
                 const name = prompt('Place name?')
                 const lat = ev.latLng.lat()
