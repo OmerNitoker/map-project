@@ -19,7 +19,7 @@ const LOC_KEY = 'locDB'
 function getLocs() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve(locs)
+            resolve(storageService.query(LOC_KEY, 0))
         }, 2000)
     })
 }
