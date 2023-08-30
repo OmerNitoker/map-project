@@ -6,23 +6,28 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
+window.onRemoveLoc = onRemoveLoc
+window.onGoLoc = onGoLoc
 
 function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready')
-            const map=getMap()
+            const map = mapService.getMap()
+            console.log(map)
             map.addListener('click', ev => {
                 const name = prompt('Place name?')
-                const lat= ev.latLng.lat()
+                const lat = ev.latLng.lat()
                 const lng = ev.latLng.lng()
-                onAddLocation(name,lat,lng)
+                console.log(name, lat, lng)
+                onAddLocation(name, lat, lng)
             })
         })
         .catch(() => console.log('Error: cannot init map'))
 }
 
-function onAddLocation(name,lat,lng){
+function onAddLocation(name, lat, lng) {
+    locService.addLoc(name, lat, lng)
 
 }
 
@@ -62,3 +67,15 @@ function onPanTo() {
     console.log('Panning the Map')
     mapService.panTo(35.6895, 139.6917)
 }
+
+function onRemoveLoc(locId) {
+    locService.remove(locId)
+}
+
+function onGoLoc(locId) {
+    console.log(locId)
+    locService.get(locId)
+        .then(loc=>mapService.panTo(loc.lat,loc.lng))
+}
+
+// ZZUzB

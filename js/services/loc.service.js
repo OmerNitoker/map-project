@@ -26,7 +26,7 @@ function getLocs() {
 
 function addLoc(name, lat, lng) {
     const loc = _createLoc(name, lat, lng)
-    return storageService.save(LOC_KEY,loc)
+    return storageService.post(LOC_KEY,loc)
 }
 
 function _createLoc(name, lat,lng) {
@@ -63,6 +63,3 @@ function save(location) {
 // }
 
 
-function createLocation(){
-    
-}
