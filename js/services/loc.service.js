@@ -10,8 +10,8 @@ import { storageService } from './async-storage.service.js'
 
 
 const locs = [
-    { name: 'Greatplace', lat: 32.047104, lng: 34.832384 }, 
-    { name: 'Neveragain', lat: 32.047201, lng: 34.832581 }
+    { id: 'keu7s', name: 'Greatplace', lat: 32.047104, lng: 34.832384, createdAt: Date.now(), updatedAt: '' }, 
+    { id: 'wkop0', name: 'Neveragain', lat: 32.047201, lng: 34.832581, createdAt: Date.now(), updatedAt: '' }
 ]
 
 const LOC_KEY = 'locDB'
